@@ -2,7 +2,7 @@ require 'gosu'
 include Gosu
 
 class Character
-  
+  attr_accessor :x , :y  
   def set_pos(x, y)
       @x = x
       @y = y
@@ -12,11 +12,11 @@ class Character
     @image.draw_rot(@x, @y, 1, 0)
   end
   
-  def x
-    return @x
-  end
+  #def x
+   # return @x
+  #end
   
-  def y
-    return @y
-  end
+#  def y
+ #   return @y
+#  end
 end

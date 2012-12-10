@@ -9,7 +9,6 @@ class Enemy < Character
     @speed_y = 5
   end
 
-  
   def move
     @y = @y + @speed_y
   end

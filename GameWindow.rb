@@ -3,15 +3,15 @@ include Gosu
 require 'Character'
 require 'Player'
 require 'Enemy'
-
+    Screen_width = 640
+    Screen_height = 480
 class GameWindow < Window
 #  @num_enemies = 5
 #  $enemies = Array.new(@num_enemies)
   def initialize
 #    @bgimage = Image.new(self, "s1.gif" , false)
-    @screen_width = 640
-    @screen_height = 480
-    super @screen_width, @screen_height, false
+    
+    super Screen_width, Screen_height, false
     self.caption = "Dodgeball"
     
     @lose = false
@@ -26,14 +26,14 @@ class GameWindow < Window
     @replay_timer = 0
     
     @player = Player.new(self)
-    @player.set_pos(@screen_width / 2, @screen_height - 30)
+    @player.set_pos(Screen_width / 2, Screen_height - 30)
     
     @i = 0
     @num_enemies = 5
     $enemies = Array.new(@num_enemies)
     until @i == @num_enemies do
 #      Thread.new {sleep(Random.rand(100) / 100)}
-      $enemies[@i] = Enemy.new(self, Random.rand(@screen_width), Random.rand(-350..-30))
+      $enemies[@i] = Enemy.new(self, Random.rand(Screen_width), Random.rand(-350..-30))
       @i = @i + 1
     end
     
@@ -61,8 +61,8 @@ class GameWindow < Window
         end
       end
       e.move
-      if e.y > @screen_height + 30 then
-            e.set_pos(Random.rand(@screen_width), Random.rand(-350..-30))
+      if e.y > Screen_height + 30 then
+            e.set_pos(Random.rand(Screen_width), Random.rand(-350..-30))
       end
     end
     
@@ -86,8 +86,8 @@ class GameWindow < Window
   def draw
 #    @bgimage.draw(0, 0, 0)
     if not @lose then
-      @font.draw("Score: #{@score}", @screen_width * 0.33, 10, 1, 1.0, 1.0, 0xffffffff)
-      @font.draw("Hi-Score: #{@current_hiscore}", @screen_width * 0.66, 10, 1, 1.0, 1.0, 0xffffffff)
+      @font.draw("Score: #{@score}", Screen_width * 0.33, 10, 1, 1.0, 1.0, 0xffffffff)
+      @font.draw("Hi-Score: #{@current_hiscore}", Screen_width * 0.66, 10, 1, 1.0, 1.0, 0xffffffff)
       @player.draw
       $enemies.each do |e|
         e.draw
@@ -96,7 +96,7 @@ class GameWindow < Window
     if @lose then
       if @hiscore then
         @hiscore_img.draw(0, 0, 0)
-        @hiscore_font.draw("#{@score}", @screen_width / 2 - 30, @screen_height / 2, 1, 1.0, 1.0, 0xffffffff)
+        @hiscore_font.draw("#{@score}", Screen_width / 2 - 30, Screen_height / 2, 1, 1.0, 1.0, 0xffffffff)
       end
       if not @hiscore then
         @lose_img.draw(0, 0, 0)
