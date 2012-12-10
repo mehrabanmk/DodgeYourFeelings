@@ -28,13 +28,13 @@ class GameWindow < Window
     @player = Player.new(self)
     @player.set_pos(Screen_width / 2, Screen_height - 30)
     
-    @i = 0
+    i = 0
     @num_enemies = 5
     $enemies = Array.new(@num_enemies)
-    until @i == @num_enemies do
+    until i == @num_enemies do
 #      Thread.new {sleep(Random.rand(100) / 100)}
-      $enemies[@i] = Enemy.new(self, Random.rand(Screen_width), Random.rand(-350..-30))
-      @i = @i + 1
+      $enemies[i] = Enemy.new(self, Random.rand(Screen_width), Random.rand(-350..-30))
+      i = i + 1
     end
     
     @font = Font.new(self, default_font_name, 20)
@@ -52,8 +52,7 @@ class GameWindow < Window
     
     $enemies.each do |e|
       if @player.collide(e) then
-#        puts "you lose"
-        @lose = true
+         @lose = true
         if @score > @current_hiscore then
           File.open("highscore.txt", 'w') {|f| f.write(@score) }
           @current_hiscore = @score
