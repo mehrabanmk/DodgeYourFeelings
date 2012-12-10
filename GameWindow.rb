@@ -13,12 +13,10 @@ class GameWindow < Window
     
     super Screen_width, Screen_height, false
     self.caption = "Dodgeball"
-    
+    @num_enemies = 5
     @lose = false
     
-    File.open('highscore.txt').each_line{ |s|
-      @current_hiscore = Integer(s.to_i)
-  }
+    File.open('highscore.txt').each_line{ |s|  @current_hiscore = Integer(s.to_i)}
     @hiscore = false
     @score = 0
     @lose_img = Image.new(self, "losescreen.png", false)
@@ -29,7 +27,7 @@ class GameWindow < Window
     @player.set_pos(Screen_width / 2, Screen_height - 30)
     
     i = 0
-    @num_enemies = 5
+    
     $enemies = Array.new(@num_enemies)
     until i == @num_enemies do
 #      Thread.new {sleep(Random.rand(100) / 100)}
@@ -40,6 +38,19 @@ class GameWindow < Window
     @font = Font.new(self, default_font_name, 20)
     @hiscore_font = Font.new(self, default_font_name, 50)
   end
+  
+  def reset
+    i=0
+   
+        $enemies = Array.new(@num_enemies)
+        until i == @num_enemies do
+    #      Thread.new {sleep(Random.rand(100) / 100)}
+          $enemies[i] = Enemy.new(self, Random.rand(Screen_width), Random.rand(-350..-30))
+          i = i + 1
+        end
+        
+  end
+  
   
   def update
     if button_down? KbLeft then
@@ -72,6 +83,7 @@ class GameWindow < Window
     if @lose then
 #      Thread.new {sleep 5000}
 #      sleep(5)
+      
       @replay_timer = @replay_timer + 1
       if @replay_timer > 599
         @lose = false
@@ -79,6 +91,7 @@ class GameWindow < Window
         @hiscore = false
         @replay_timer = 0
       end
+      reset
     end
   end
   
