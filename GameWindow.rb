@@ -25,26 +25,17 @@ class GameWindow < Window
     
     @player = Player.new(self)
     @player.set_pos(Screen_width / 2, Screen_height - 30)
-    
-    i = 0
-    
-    $enemies = Array.new(@num_enemies)
-    until i == @num_enemies do
-#      Thread.new {sleep(Random.rand(100) / 100)}
-      $enemies[i] = Enemy.new(self, Random.rand(Screen_width), Random.rand(-350..-30))
-      i = i + 1
-    end
-    
+    set
+
     @font = Font.new(self, default_font_name, 20)
     @hiscore_font = Font.new(self, default_font_name, 50)
   end
   
-  def reset
+  def set
     i=0
    
         $enemies = Array.new(@num_enemies)
         until i == @num_enemies do
-    #      Thread.new {sleep(Random.rand(100) / 100)}
           $enemies[i] = Enemy.new(self, Random.rand(Screen_width), Random.rand(-350..-30))
           i = i + 1
         end
@@ -91,7 +82,7 @@ class GameWindow < Window
         @hiscore = false
         @replay_timer = 0
       end
-      reset
+      set
     end
   end
   
