@@ -10,13 +10,13 @@ class Player < Character
   
 
   def move_left
-    if @x > 25 and @x < 640 then
+    if @x > 25 and @x < SCREEN_WIDTH then
       @x = @x - @speed_x
     end
   end
   
   def move_right
-    if @x > 0 and @x < 615 then
+    if @x > 0 and @x < SCREEN_WIDTH-25 then
       @x = @x + @speed_x
     end
   end
