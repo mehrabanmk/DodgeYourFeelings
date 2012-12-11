@@ -12,7 +12,7 @@ class GameWindow < Window
 #    @bgimage = Image.new(self, "s1.gif" , false)
     
     super Screen_width, Screen_height, false
-    self.caption = "Dodgeball"
+    self.caption = "Dodge Your Feelings"
     @num_enemies = 5
     @lose = false
     
