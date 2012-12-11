@@ -13,4 +13,8 @@ class Enemy < Character
     @y = @y + @speed_y
   end
   
+  def set_speed(speed)
+    @speed_y = speed
+  end
+  
 end

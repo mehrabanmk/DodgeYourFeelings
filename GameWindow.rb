@@ -22,6 +22,8 @@ class GameWindow < Window
     @lose_img = Image.new(self, "losescreen.png", false)
     @hiscore_img = Image.new(self, "hiscorescreen.png", false)
     @replay_timer = 0
+    @enemy_speed = 5
+    @difficulty_timer = 1
     
     @player = Player.new(self)
     @player.set_pos(Screen_width / 2, Screen_height - 30)
@@ -61,9 +63,16 @@ class GameWindow < Window
           @hiscore = true
         end
       end
+      
       e.move
+      
       if e.y > Screen_height + 30 then
             e.set_pos(Random.rand(Screen_width), Random.rand(-350..-30))
+      end
+      
+      if @difficulty_timer % 300 == 0 then
+        @enemy_speed = @enemy_speed + 0.1
+        e.set_speed(@enemy_speed)
       end
     end
     
@@ -76,14 +85,19 @@ class GameWindow < Window
 #      sleep(5)
       
       @replay_timer = @replay_timer + 1
-      if @replay_timer > 599
+      if @replay_timer > 299
         @lose = false
         @score = 0
         @hiscore = false
         @replay_timer = 0
+        @enemy_speed = 5
+        @difficulty_timer = 1
       end
+      
       set
     end
+    
+    @difficulty_timer = @difficulty_timer + 1
   end
   
   def draw
