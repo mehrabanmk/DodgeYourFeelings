@@ -1,4 +1,4 @@
-require 'gosu'
+require 'gosu'  
 include Gosu
 
 class Enemy < Character

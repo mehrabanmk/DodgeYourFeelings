@@ -3,15 +3,14 @@ include Gosu
 require 'Character'
 require 'Player'
 require 'Enemy'
-    Screen_width = 640
-    Screen_height = 480
+    SCREEN_WIDTH = 640
+    SCREEN_HEIGHT = 480
 class GameWindow < Window
-#  @num_enemies = 5
-#  $enemies = Array.new(@num_enemies)
+
+
   def initialize
-#    @bgimage = Image.new(self, "s1.gif" , false)
-    
-    super Screen_width, Screen_height, false
+   
+    super SCREEN_WIDTH, SCREEN_HEIGHT, false
     self.caption = "Dodge Your Feelings"
     @num_enemies = 5
     @lose = false
@@ -26,7 +25,7 @@ class GameWindow < Window
     @difficulty_timer = 1
     
     @player = Player.new(self)
-    @player.set_pos(Screen_width / 2, Screen_height - 30)
+    @player.set_pos(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 30)
     set
 
     @font = Font.new(self, default_font_name, 20)
@@ -38,7 +37,7 @@ class GameWindow < Window
    
         $enemies = Array.new(@num_enemies)
         until i == @num_enemies do
-          $enemies[i] = Enemy.new(self, Random.rand(Screen_width), Random.rand(-350..-30))
+          $enemies[i] = Enemy.new(self, Random.rand(SCREEN_WIDTH), Random.rand(-350..-30))
           i = i + 1
         end
         
@@ -66,8 +65,8 @@ class GameWindow < Window
       
       e.move
       
-      if e.y > Screen_height + 30 then
-            e.set_pos(Random.rand(Screen_width), Random.rand(-350..-30))
+      if e.y > SCREEN_HEIGHT + 30 then
+            e.set_pos(Random.rand(SCREEN_WIDTH), Random.rand(-350..-30))
       end
       
       if @difficulty_timer % 300 == 0 then
@@ -81,9 +80,7 @@ class GameWindow < Window
     end
     
     if @lose then
-#      Thread.new {sleep 5000}
-#      sleep(5)
-      
+     
       @replay_timer = @replay_timer + 1
       if @replay_timer > 299
         @lose = false
@@ -101,10 +98,10 @@ class GameWindow < Window
   end
   
   def draw
-#    @bgimage.draw(0, 0, 0)
+
     if not @lose then
-      @font.draw("Score: #{@score}", Screen_width * 0.33, 10, 1, 1.0, 1.0, 0xffffffff)
-      @font.draw("Hi-Score: #{@current_hiscore}", Screen_width * 0.66, 10, 1, 1.0, 1.0, 0xffffffff)
+      @font.draw("Score: #{@score}", SCREEN_WIDTH * 0.33, 10, 1, 1.0, 1.0, 0xffffffff)
+      @font.draw("Hi-Score: #{@current_hiscore}", SCREEN_WIDTH * 0.66, 10, 1, 1.0, 1.0, 0xffffffff)
       @player.draw
       $enemies.each do |e|
         e.draw
@@ -113,7 +110,7 @@ class GameWindow < Window
     if @lose then
       if @hiscore then
         @hiscore_img.draw(0, 0, 0)
-        @hiscore_font.draw("#{@score}", Screen_width / 2 - 30, Screen_height / 2, 1, 1.0, 1.0, 0xffffffff)
+        @hiscore_font.draw("#{@score}", SCREEN_WIDTH / 2 - 30, SCREEN_HEIGHT / 2, 1, 1.0, 1.0, 0xffffffff)
       end
       if not @hiscore then
         @lose_img.draw(0, 0, 0)
