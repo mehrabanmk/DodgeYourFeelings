@@ -7,6 +7,7 @@ require 'Enemy'
     SCREEN_HEIGHT = 480
 class GameWindow < Window
   NUM_ENEMIES = 5
+  
   def initialize  
     
     super SCREEN_WIDTH, SCREEN_HEIGHT, false
