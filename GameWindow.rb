@@ -6,13 +6,15 @@ require 'Enemy'
     SCREEN_WIDTH = 640
     SCREEN_HEIGHT = 480
 class GameWindow < Window
-
-
-  def initialize
-   
+  NUM_ENEMIES = 5
+  def initialize  
+    
     super SCREEN_WIDTH, SCREEN_HEIGHT, false
+    @music = Song.new(self, "AlexC.ogg")
+    @music.play
+    @bgimage = Image.new(self, "bg.png", false)
     self.caption = "Dodge Your Feelings"
-    @num_enemies = 5
+    
     @lose = false
     
     File.open('highscore.txt').each_line{ |s|  @current_hiscore = Integer(s.to_i)}
@@ -31,12 +33,18 @@ class GameWindow < Window
     @font = Font.new(self, default_font_name, 20)
     @hiscore_font = Font.new(self, default_font_name, 50)
   end
+  def updateMusic
+    #if @currentLevel.done then
+    @music.stop # Doesn't seem to be necessary
+    @music2 = Gosu::Song.new(self, "sfx/track2.mp3")
+    @music2.play
+    #@music = nil
+  end
   
   def set
     i=0
-   
-        $enemies = Array.new(@num_enemies)
-        until i == @num_enemies do
+        $enemies = Array.new(NUM_ENEMIES)
+        until i == NUM_ENEMIES do
           $enemies[i] = Enemy.new(self, Random.rand(SCREEN_WIDTH), Random.rand(-350..-30))
           i = i + 1
         end
@@ -80,7 +88,8 @@ class GameWindow < Window
     end
     
     if @lose then
-     
+
+      
       @replay_timer = @replay_timer + 1
       if @replay_timer > 299
         @lose = false
@@ -100,6 +109,7 @@ class GameWindow < Window
   def draw
 
     if not @lose then
+      @bgimage.draw(0, 0, 0)
       @font.draw("Score: #{@score}", SCREEN_WIDTH * 0.33, 10, 1, 1.0, 1.0, 0xffffffff)
       @font.draw("Hi-Score: #{@current_hiscore}", SCREEN_WIDTH * 0.66, 10, 1, 1.0, 1.0, 0xffffffff)
       @player.draw
